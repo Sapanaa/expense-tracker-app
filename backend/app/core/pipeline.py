@@ -3,10 +3,10 @@ import uuid
 
 # Save scanned image
 import cv2
-from backend.core.scanner import scan_document
-from backend.core.cleaner import clean_image
-from backend.core.ocr_engine import extract_text
-from backend.core.parser import parse_items_and_prices
+from backend.app.core.scanner import scan_document
+from backend.app.core.cleaner import clean_image
+from backend.app.core.ocr_engine import extract_text
+from backend.app.core.parser import parse_items_and_prices
 
 def process_bill(image_path: str) -> dict:
     """
@@ -52,12 +52,12 @@ def process_bill(image_path: str) -> dict:
     raw_text = extract_text(cleaned_path)
 
     # 4️⃣ Parse text
-    items, prices, calculated_total, detected_total  = parse_items_and_prices(raw_text)
+    parsed  = parse_items_and_prices(raw_text)
 
     return {
-        "items": items,
-        "prices": prices,
-        "calculated_total": calculated_total,
-        "detected_total": detected_total,
+        "items": parsed["items"],
+        "prices": parsed["prices"],
+        "calculated_total": parsed["calculated_total"],
+        "detected_total": parsed["detected_total"],
         "raw_text": raw_text
     }

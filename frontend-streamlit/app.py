@@ -5,10 +5,10 @@ sys.path.insert(0, ROOT_DIR)
 DATA_DIR = os.path.join(ROOT_DIR, "data")
 import streamlit as st
 from PIL import Image
-from backend.core.scanner import scan_document
-from backend.core.cleaner import clean_image
-from backend.core.ocr_engine import extract_text
-from backend.core.parser import parse_items_and_prices
+from backend.app.core.scanner import scan_document
+from backend.app.core.cleaner import clean_image
+from backend.app.core.ocr_engine import extract_text
+from backend.app.core.parser import parse_items_and_prices
 os.makedirs(DATA_DIR, exist_ok=True)
 
 st.set_page_config(page_title="Receipt OCR Pipeline", layout="wide")
