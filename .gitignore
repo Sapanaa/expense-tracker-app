@@ -8,7 +8,13 @@ __pycache__/
 
 
 /vvenv
-/data
+data/raw/*
+data/test_outputs/*
+data/temp/*
+/temp
+
+
+
 # Distribution / packaging
 .Python
 build/
