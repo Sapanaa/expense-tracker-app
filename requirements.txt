@@ -6,3 +6,4 @@ ipykernel
 matplotlib
 pandas
 pillow
+streamlit

@@ -7,8 +7,8 @@ import streamlit as st
 from PIL import Image
 from backend.core.scanner import scan_document
 from backend.core.cleaner import clean_image
-# from backend.core.ocr_engine import extract_text
-# from backend.core.parser import parse_receipt
+from backend.core.ocr_engine import extract_text
+from backend.core.parser import parse_items_and_prices
 os.makedirs(DATA_DIR, exist_ok=True)
 
 st.set_page_config(page_title="Receipt OCR Pipeline", layout="wide")
@@ -69,25 +69,26 @@ if "input_path" in locals():
 
     scan_document(input_path, scanned_path)
     clean_image(scanned_path, cleaned_path)
-    # ocr_text = extract_text(cleaned_path)
-    # parsed = parse_receipt(ocr_text)
+    ocr_text = extract_text(cleaned_path)
+    print(ocr_text)
+    parsed = parse_items_and_prices(ocr_text)
 
-    # col1, col2, col3 = st.columns(3)
+    col1, col2, col3 = st.columns(3)
 
-    # with col1:
-    #     st.subheader("Original")
-    #     st.image(Image.open(input_path), use_column_width=True)
+    with col1:
+        st.subheader("Original")
+        st.image(Image.open(input_path), use_column_width=True)
 
-    # with col2:
-    #     st.subheader("Scanned")
-    #     st.image(Image.open(scanned_path), use_column_width=True)
+    with col2:
+        st.subheader("Scanned")
+        st.image(Image.open(scanned_path), use_column_width=True)
 
-    # with col3:
-    #     st.subheader("Cleaned")
-    #     st.image(Image.open(cleaned_path), use_column_width=True)
+    with col3:
+        st.subheader("Cleaned")
+        st.image(Image.open(cleaned_path), use_column_width=True)
 
-    # st.subheader("📄 OCR Text")
-    # st.text_area("Extracted Text", ocr_text, height=200)
+    st.subheader("📄 OCR Text")
+    st.text_area("Extracted Text", ocr_text, height=200)
 
-    # st.subheader("📊 Parsed Output")
-    # st.json(parsed)
+    st.subheader("📊 Parsed Output")
+    st.json(parsed)
