@@ -1,14 +1,16 @@
-from backend.core.cleaner import clean_image
-from backend.core.scanner import scan_document
+from backend.core.pipeline import process_bill
+import os
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-input_image = "data/raw/sample_receipt.png"
-output_image = "data/processed/cleaned_receipt.png"
-output_scanned_image = "data/processed/scanned_receipt.png"
+image_path = os.path.join(
+    BASE_DIR,
+    "data",
+    "raw",
+    "sample_receipt.png"
+)
 
-clean_image(input_image, output_image)
+print("Image path:", image_path)
+print("Exists:", os.path.exists(image_path))
 
-print(f"Cleaned image saved at: {output_image}")
-
-scan_document(input_image, output_scanned_image)
-
-print(f"Scanned image saved at: {output_scanned_image}")
+result = process_bill(image_path)
+print(result)
